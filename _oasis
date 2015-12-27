@@ -1,0 +1,14 @@
+OASISFormat: 0.4
+Name:        doubler
+Version:     0.0.1
+Synopsis:    Simple RESTful service
+Authors:     Luis Angel Vicente Sanchez
+License:     LGPL-3.0 with OCaml linking exception
+
+Executable doubler
+  Path:       src
+  BuildTools: ocamlbuild
+  MainIs:     doubler.ml
+  BuildDepends:
+    core_kernel,
+    opium
