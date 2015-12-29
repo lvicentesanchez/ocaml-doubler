@@ -11,4 +11,5 @@ Executable doubler
   MainIs:         doubler.ml
   CompiledObject: best
   BuildDepends:
+    lwt.ppx,
     opium

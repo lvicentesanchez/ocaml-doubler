@@ -14,7 +14,7 @@ let person_of_json json =
   in
   { name ; age }
 
-let double_age_process req =
+let double_age_handle req =
   App.json_of_body_exn req >>| fun json ->
     let source = Ezjsonm.value json |> person_of_json
     in
@@ -22,14 +22,11 @@ let double_age_process req =
     in
     `Json (json_of_person person) |> respond ~code:`OK
 
-let double_age_handle_exn = function
-  | Ezjsonm.Parse_error _ | Not_found -> `String "Bad request" |> respond' ~code:`Bad_request
-  | exn -> Lwt.fail exn
-
 let double_age = post "/" begin fun req ->
-  Lwt.catch
-    (fun () -> double_age_process req)
-    double_age_handle_exn
+  try%lwt
+    double_age_handle req
+  with
+    | Ezjsonm.Parse_error _ | Not_found -> `String "Bad request" |> respond' ~code:`Bad_request
 end
 
 let _ =
