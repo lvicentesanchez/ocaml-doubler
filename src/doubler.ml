@@ -8,9 +8,9 @@ let json_of_person { name ; age } =
      ]
 
 let person_of_json json =
-  let name = Ezjsonm.find json ["name"] |> Ezjsonm.get_string
+  let name = Ezjsonm.(find json ["name"] |> get_string)
   in
-  let age = Ezjsonm.find json ["age"] |> Ezjsonm.get_int
+  let age = Ezjsonm.(find json ["age"] |> get_int)
   in
   { name ; age }
 
