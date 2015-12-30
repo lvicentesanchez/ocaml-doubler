@@ -1,6 +1,6 @@
 open Opium.Std
 
-let double_age_handle req =
+let double_age_handler req =
   try%lwt
     App.json_of_body_exn req >>| fun json ->
     let source = Ezjsonm.value json |> Person.of_json
@@ -12,7 +12,7 @@ let double_age_handle req =
   | Ezjsonm.Parse_error _ | Not_found ->
     `String "Bad request" |> respond' ~code:`Bad_request
 
-let double_age = post "/" double_age_handle
+let double_age = post "/" double_age_handler
 
 let _ =
   App.empty
